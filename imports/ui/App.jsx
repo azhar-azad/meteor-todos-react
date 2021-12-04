@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import { TasksCollection } from '../api/TasksCollection';
 import { Task } from './Task.jsx';
@@ -17,6 +17,8 @@ const deleteTask = ({ _id }) => {
 }
 
 export const App = () => {
+  const [hideCompleted, setHideCompleted] = useState(false);
+
   // The useTracker function exported by 
   // react-meteor-data is a React Hook that allows us
   // to have reactivity in our React components. Every
@@ -36,6 +38,12 @@ export const App = () => {
 
       <div className="main">
         <TaskForm/>
+
+        <div className="filter">
+          <button onClick={() => setHideCompleted(!hideCompleted)}>
+            {hideCompleted ? 'Show All' : 'Hide Clompleted'}
+          </button>
+        </div>
 
         <ul className="tasks">
           { tasks.map( task => (
