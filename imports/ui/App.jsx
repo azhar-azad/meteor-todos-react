@@ -10,7 +10,7 @@ export const App = () => {
   // to have reactivity in our React components. Every
   // time the data changes through reactivity our
   // component will re-render. 
-  const tasks = useTracker(() => TasksCollection.find({}).fetch());
+  const tasks = useTracker(() => TasksCollection.find({}, { sort: { createdAt: -1 } }).fetch());
 
   return (
     <div>
