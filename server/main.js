@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { TasksCollection } from '../imports/db/TasksCollection';
 import '../imports/api/tasksMethods'; // registering the methods
+import '../imports/api/tasksPublications'; // registering the publications
 
 const SEED_USERNAME = 'meteor';
 const SEED_PASSWORD = 'meteor';
