@@ -30,22 +30,27 @@ export const App = () => {
   // to have reactivity in our React components. Every
   // time the data changes through reactivity our
   // component will re-render. 
-  const tasks = useTracker(() => {
-    if (!user) {
-      return [];
+  const { tasks, pendingTasksCount, isLoading } = useTracker(() => {
+    const noDataAvailable = { tasks: [], pendingTasksCount: 0 };
+
+    if (!Meteor.user()) {
+      return noDataAvailable;
     }
 
-    return TasksCollection.find(hideCompleted ? pendingOnlyFilter : userFilter, { 
-      sort: { createdAt: -1 } 
-    }).fetch();
-  });
+    const handler = Meteor.subscribe('tasks');
 
-  const pendingTasksCount = useTracker(() => {
-    if (!user) {
-      return 0;
+    if (!handler.ready()) {
+      return { ...noDataAvailable, isLoading: true };
     }
 
-    return TasksCollection.find(pendingOnlyFilter).count();
+    const tasks = TasksCollection.find(
+      hideCompleted ? pendingOnlyFilter : userFilter,
+      { sort: { createdAt: -1 } }
+    ).fetch();
+
+    const pendingTasksCount = TasksCollection.find(pendingOnlyFilter).count();
+
+    return { tasks, pendingTasksCount };
   });
 
   const pendingTasksTitle = `${pendingTasksCount ? ` (${pendingTasksCount})` : '' }`;
