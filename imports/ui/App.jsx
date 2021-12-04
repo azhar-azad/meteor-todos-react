@@ -4,6 +4,14 @@ import { TasksCollection } from '../api/TasksCollection';
 import { Task } from './Task.jsx';
 import { TaskForm } from './TaskForm.jsx';
 
+const toggleChecked = ({ _id, isChecked }) => {
+  TasksCollection.update(_id, {
+    $set: {
+      isChecked: !isChecked
+    }
+  });
+};
+
 export const App = () => {
   // The useTracker function exported by 
   // react-meteor-data is a React Hook that allows us
@@ -19,7 +27,7 @@ export const App = () => {
       <TaskForm/>
 
       <ul>
-        { tasks.map(task => <Task key={task._id} task={task}/>) }
+        { tasks.map( task => <Task key={task._id} task={task} onCheckboxClick={toggleChecked}/> ) }
       </ul>
     </div>
   );
