@@ -2,6 +2,7 @@ import React from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import { TasksCollection } from '../api/TasksCollection';
 import { Task } from './Task.jsx';
+import { TaskForm } from './TaskForm.jsx';
 
 export const App = () => {
   // The useTracker function exported by 
@@ -14,6 +15,8 @@ export const App = () => {
   return (
     <div>
       <h1>Welcome to Meteor!</h1>
+
+      <TaskForm/>
 
       <ul>
         { tasks.map(task => <Task key={task._id} task={task}/>) }
