@@ -17,7 +17,7 @@ Meteor.methods({
   },
 
   'tasks.remove'(taskId) {
-    check(text, String);
+    check(taskId, String);
 
     if (!this.userId) {
       throw new Meteor.Error('Not authorized');
@@ -27,7 +27,7 @@ Meteor.methods({
   },
 
   'tasks.setIsChecked'(taskId, isChecked) {
-    check(text, String);
+    check(taskId, String);
     check(isChecked, Boolean);
 
     if (!this.userId) {

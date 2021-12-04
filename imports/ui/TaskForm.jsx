@@ -1,5 +1,5 @@
+import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
-import { TasksCollection } from '../api/TasksCollection';
 
 export const TaskForm = ({ user }) => {
   const [text, setText] = useState('');
@@ -11,11 +11,7 @@ export const TaskForm = ({ user }) => {
       return;
     }
 
-    TasksCollection.insert({
-      text: text.trim(),
-      createdAt: new Date(),
-      userId: user._id
-    });
+    Meteor.call('tasks.insert', text);
 
     setText('');
   };

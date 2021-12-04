@@ -7,15 +7,11 @@ import { TaskForm } from './TaskForm.jsx';
 import { LoginForm } from './LoginForm.jsx';
 
 const toggleChecked = ({ _id, isChecked }) => {
-  TasksCollection.update(_id, {
-    $set: {
-      isChecked: !isChecked
-    }
-  });
+  Meteor.call('tasks.setIsChecked', _id, !isChecked);
 };
 
 const deleteTask = ({ _id }) => {
-  TasksCollection.remove(_id);
+  Meteor.call('tasks.remove', _id);
 }
 
 export const App = () => {
@@ -73,7 +69,7 @@ export const App = () => {
               {user.username} 🚪
             </div>
 
-            <TaskForm user={user} />
+            <TaskForm />
 
             <div className="filter">
               <button onClick={() => setHideCompleted(!hideCompleted)}>
