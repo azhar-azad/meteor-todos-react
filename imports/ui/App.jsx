@@ -19,12 +19,18 @@ const deleteTask = ({ _id }) => {
 export const App = () => {
   const [hideCompleted, setHideCompleted] = useState(false);
 
+  const hideCompletedFilter = { isChecked: { $ne: true } };
+
   // The useTracker function exported by 
   // react-meteor-data is a React Hook that allows us
   // to have reactivity in our React components. Every
   // time the data changes through reactivity our
   // component will re-render. 
-  const tasks = useTracker(() => TasksCollection.find({}, { sort: { createdAt: -1 } }).fetch());
+  const tasks = useTracker(() => 
+    TasksCollection.find(hideCompleted ? hideCompletedFilter : {}, { 
+      sort: { createdAt: -1 } 
+    }).fetch()
+  );
 
   return (
     <div className="app">
