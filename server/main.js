@@ -8,6 +8,13 @@ const SEED_PASSWORD = 'meteor';
 const insertTask = taskText => TasksCollection.insert({ text: taskText });
 
 Meteor.startup(() => {
+  if (!Accounts.findUserByUsername(SEED_USERNAME)) {
+    Accounts.createUser({
+      username: SEED_USERNAME,
+      password: SEED_PASSWORD
+    });
+  }
+
   if (TasksCollection.find().count() === 0) {
     [
       'First Task',
