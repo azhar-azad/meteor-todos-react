@@ -5,7 +5,7 @@
 
 import React from "react";
 
-export const Task = ({ task, onCheckboxClick }) => {
+export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {
   // As this component will be inside a list
   // we are returning a li element. 
   return (
@@ -16,6 +16,7 @@ export const Task = ({ task, onCheckboxClick }) => {
         onClick={() => onCheckboxClick(task)}
         readOnly />
       <span>{task.text}</span>
+      <button onClick={ () => onDeleteClick(task) }>&times;</button>
     </li>
   )
 };

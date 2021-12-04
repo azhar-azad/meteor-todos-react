@@ -12,6 +12,10 @@ const toggleChecked = ({ _id, isChecked }) => {
   });
 };
 
+const deleteTask = ({ _id }) => {
+  TasksCollection.remove(_id);
+}
+
 export const App = () => {
   // The useTracker function exported by 
   // react-meteor-data is a React Hook that allows us
@@ -27,7 +31,12 @@ export const App = () => {
       <TaskForm/>
 
       <ul>
-        { tasks.map( task => <Task key={task._id} task={task} onCheckboxClick={toggleChecked}/> ) }
+        { tasks.map( task => <Task 
+          key={task._id} 
+          task={task} 
+          onCheckboxClick={toggleChecked}
+          onDeleteClick={deleteTask}
+        /> ) }
       </ul>
     </div>
   );
