@@ -82,6 +82,8 @@ export const App = () => {
               </button>
             </div>
 
+            {isLoading && <div className="loading">Loading...</div>}
+
             <ul className="tasks">
               { tasks.map( task => (
                 <Task 
